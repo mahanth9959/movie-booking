@@ -1,0 +1,26 @@
+import type { Movie } from "../types";
+
+function poster(seed: number) {
+  return `https://picsum.photos/seed/cine${seed}/500/750`;
+}
+function backdrop(seed: number) {
+  return `https://picsum.photos/seed/cinebg${seed}/1280/640`;
+}
+
+export const FALLBACK_MOVIES: Movie[] = [
+  { id: 101, title: "Neon Horizon", genres: ["Sci-Fi", "Action"], language: "English", runtime: 142, rating: 8.6, releaseDate: "2026-08-14", description: "A salvage pilot discovers a signal from a dead colony ship and races rival crews across a neon-lit orbital belt to claim what it protects.", poster: poster(11), backdrop: backdrop(11), status: "Now Showing", certification: "U/A 13+", cast: ["Aarav Mehta", "Elena Ross", "Kabir Shah"] },
+  { id: 102, title: "Monsoon Wedding Bells", genres: ["Comedy", "Romance"], language: "Hindi", runtime: 128, rating: 7.4, releaseDate: "2026-07-04", description: "Two rival wedding planners are forced to co-host a chaotic three-day coastal wedding during peak monsoon season.", poster: poster(22), backdrop: backdrop(22), status: "Now Showing", certification: "U", cast: ["Priya Nair", "Vikram Rao", "Dolly Singh"] },
+  { id: 103, title: "The Last Lighthouse", genres: ["Drama", "Thriller"], language: "English", runtime: 117, rating: 8.1, releaseDate: "2026-06-20", description: "A keeper on a remote island station logs ships that never arrive — until one night a vessel answers back.", poster: poster(33), backdrop: backdrop(33), status: "Now Showing", certification: "U/A 16+", cast: ["Tom Ellery", "Mara Quinn"] },
+  { id: 104, title: "Varanasi Nights", genres: ["Drama"], language: "Hindi", runtime: 135, rating: 8.9, releaseDate: "2026-09-02", description: "Three generations of a classical music family reunite on the ghats for one final all-night performance.", poster: poster(44), backdrop: backdrop(44), status: "Now Showing", certification: "U", cast: ["Naseer Ali", "Anaya Kulkarni", "Dev Patel"] },
+  { id: 105, title: "Shadow Protocol", genres: ["Action", "Thriller"], language: "English", runtime: 151, rating: 7.8, releaseDate: "2026-05-16", description: "A disavowed operative has 48 hours to stop a rogue AI auction before it goes live on the darknet.", poster: poster(55), backdrop: backdrop(55), status: "Now Showing", certification: "U/A 16+", cast: ["Chris Donovan", "Li Wei", "Sara Khan"] },
+  { id: 106, title: "Kantara Skies", genres: ["Fantasy", "Adventure"], language: "Kannada", runtime: 148, rating: 8.3, releaseDate: "2026-10-10", description: "A forest tribe's sky-whale migration is threatened by a mining empire; a young cartographer maps a forbidden route.", poster: poster(66), backdrop: backdrop(66), status: "Upcoming", certification: "U/A 13+", cast: ["Rakshit Gowda", "Divya Prasad"] },
+  { id: 107, title: "Chennai Express Dreams", genres: ["Comedy", "Drama"], language: "Tamil", runtime: 122, rating: 7.1, releaseDate: "2026-04-11", description: "A night-shift radio jockey drives a borrowed taxi across the city, collecting strangers' stories before sunrise.", poster: poster(77), backdrop: backdrop(77), status: "Now Showing", certification: "U", cast: ["Arjun Das", "Sneha Latha"] },
+  { id: 108, title: "Iron Harvest", genres: ["Action", "Drama"], language: "Telugu", runtime: 160, rating: 8.0, releaseDate: "2026-11-21", description: "Two farming brothers turn their village into a solar grid — and take on the syndicate that owns the river.", poster: poster(88), backdrop: backdrop(88), status: "Upcoming", certification: "U/A 13+", cast: ["Naga Chaitanya Rao", "Sree Leela V"] },
+  { id: 109, title: "Paper Moons", genres: ["Romance", "Drama"], language: "Malayalam", runtime: 109, rating: 7.9, releaseDate: "2026-03-07", description: "A bookstore owner and a travelling astronomer exchange letters tied to paper lanterns over one Kochi winter.", poster: poster(99), backdrop: backdrop(99), status: "Classic", certification: "U", cast: ["Fahad Ali", "Parvathy S"] },
+  { id: 110, title: "Quantum Heist", genres: ["Sci-Fi", "Crime"], language: "English", runtime: 133, rating: 7.6, releaseDate: "2026-12-18", description: "A crew of retired physicists plans to steal back a time capsule from a quantum vault that resets every 11 minutes.", poster: poster(110), backdrop: backdrop(110), status: "Upcoming", certification: "U/A 13+", cast: ["Idris Cole", "Ana de Luz", "Ken Watanabe Jr."] },
+  { id: 111, title: "Deccan Queens", genres: ["Sport", "Drama"], language: "Hindi", runtime: 145, rating: 8.2, releaseDate: "2026-08-29", description: "India's first women's kabaddi league team fights politics, injuries and each other on the road to nationals.", poster: poster(111), backdrop: backdrop(111), status: "Now Showing", certification: "U", cast: ["Taapsee Verma", "Richa S", "Neha Dhupia Jr."] },
+  { id: 112, title: "Silent Frequencies", genres: ["Horror", "Mystery"], language: "English", runtime: 98, rating: 6.8, releaseDate: "2026-09-26", description: "A podcast host investigating dead radio stations starts broadcasting episodes she never recorded.", poster: poster(112), backdrop: backdrop(112), status: "Now Showing", certification: "A 18+", cast: ["Mia Harper", "Jonah Bell"] },
+];
+
+export const ALL_GENRES = Array.from(new Set(FALLBACK_MOVIES.flatMap((m) => m.genres))).sort();
+export const ALL_LANGUAGES = Array.from(new Set(FALLBACK_MOVIES.map((m) => m.language))).sort();
