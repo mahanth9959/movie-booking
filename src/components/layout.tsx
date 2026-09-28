@@ -21,6 +21,33 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
+export function GuestRoute({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
+  if (user) return <Navigate to="/" replace />;
+  return <>{children}</>;
+}
+
+export function AuthShell({ children }: { children: ReactNode }) {
+  const { toasts, dismiss } = useToast();
+  return (
+    <div className="min-h-full bg-[#08080d] text-zinc-100">
+      <header className="border-b border-[#1d1d2b] bg-[#0b0b13]">
+        <div className="mx-auto flex h-16 max-w-7xl items-center gap-2.5 px-4 sm:px-6">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 to-rose-800 shadow-[0_8px_20px_-6px_rgba(225,29,72,0.8)]">
+            <Ticket size={18} className="text-white" />
+          </span>
+          <span className="text-left leading-tight">
+            <span className="block text-[15px] font-extrabold tracking-tight">CineBook</span>
+            <span className="block text-[11px] font-medium text-zinc-500">Movie Ticket Booking</span>
+          </span>
+        </div>
+      </header>
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">{children}</main>
+      <ToastStack toasts={toasts} dismiss={dismiss} />
+    </div>
+  );
+}
+
 function NavItems({ onNav }: { onNav?: () => void }) {
   return (
     <nav className="flex flex-col gap-1 p-3" aria-label="Primary">
