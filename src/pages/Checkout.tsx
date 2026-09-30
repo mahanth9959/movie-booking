@@ -40,7 +40,7 @@ export function CheckoutPage() {
 
   return (
     <div className="anim-rise mx-auto max-w-3xl">
-      <button type="button" onClick={() => nav(-1)} className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-white">
+      <button type="button" onClick={() => nav(-1)} className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-mist hover:text-strong">
         <ArrowLeft size={15} /> Back to seats
       </button>
       <PageHeader title="Booking summary" sub="Review every detail before you pay — duplicates are blocked automatically." />
@@ -67,11 +67,11 @@ export function CheckoutPage() {
             </div>
           </div>
 
-          <dl className="space-y-2 rounded-xl border border-[#232332] bg-[#0e0e17] p-4 text-sm">
-            <div className="flex justify-between"><dt className="text-zinc-400">Tickets ({seats.length})</dt><dd className="font-semibold">{formatINR(ticketPrice)}</dd></div>
-            <div className="flex justify-between"><dt className="text-zinc-400">Convenience fee</dt><dd className="font-semibold">{formatINR(fee)}</dd></div>
-            <div className="flex justify-between"><dt className="text-zinc-400">Weekend offer (Prime)</dt><dd className="font-semibold text-emerald-300">Included</dd></div>
-            <div className="flex justify-between border-t border-[#232332] pt-2 text-base font-extrabold"><dt>Total payable</dt><dd>{formatINR(total)}</dd></div>
+          <dl className="space-y-2 rounded-xl border border-line bg-coal p-4 text-sm">
+            <div className="flex justify-between"><dt className="text-mist">Tickets ({seats.length})</dt><dd className="font-semibold">{formatINR(ticketPrice)}</dd></div>
+            <div className="flex justify-between"><dt className="text-mist">Convenience fee</dt><dd className="font-semibold">{formatINR(fee)}</dd></div>
+            <div className="flex justify-between"><dt className="text-mist">Weekend offer (Prime)</dt><dd className="font-semibold text-emerald-300">Included</dd></div>
+            <div className="flex justify-between border-t border-line pt-2 text-base font-extrabold"><dt>Total payable</dt><dd>{formatINR(total)}</dd></div>
           </dl>
 
           <div className="flex items-start gap-2 rounded-xl border border-sky-500/20 bg-sky-500/5 p-3.5 text-xs leading-relaxed text-sky-200">

@@ -8,7 +8,7 @@ import { Button, Input } from "../components/ui";
 
 function Shell({ title, sub, children }: { title: string; sub: string; children: React.ReactNode }) {
   return (
-    <div className="mx-auto grid w-full max-w-5xl overflow-hidden rounded-3xl border border-[#232332] bg-[#0e0e17] md:grid-cols-2">
+    <div className="mx-auto grid w-full max-w-5xl overflow-hidden rounded-3xl border border-line bg-coal md:grid-cols-2">
       <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-rose-700 via-[#3b0a1e] to-[#0e0e17] p-8 md:flex">
         <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-rose-500/25 blur-3xl" />
         <div className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-amber-400/15 blur-3xl" />
@@ -75,17 +75,17 @@ export function LoginPage() {
           <Input id="email" label="Email" icon={Mail} placeholder="you@example.com" autoComplete="email" error={errors.email?.message} {...register("email", { required: "Email is required", pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email" } })} />
           <div>
             <Input id="password" label="Password" icon={Lock} type={show ? "text" : "password"} placeholder="••••••••" autoComplete="current-password" error={errors.password?.message} {...register("password", { required: "Password is required", minLength: { value: 6, message: "Minimum 6 characters" } })} />
-            <button type="button" onClick={() => setShow((s) => !s)} className="mt-1.5 inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-white" aria-label={show ? "Hide password" : "Show password"}>
+            <button type="button" onClick={() => setShow((s) => !s)} className="mt-1.5 inline-flex items-center gap-1.5 text-xs font-medium text-mist hover:text-strong" aria-label={show ? "Hide password" : "Show password"}>
               {show ? <EyeOff size={14} /> : <Eye size={14} />} {show ? "Hide" : "Show"} password
             </button>
           </div>
           <Button type="submit" loading={isSubmitting} className="w-full py-3">Sign in</Button>
           <div className="flex items-center justify-between text-sm">
             <Link to="/forgot" className="font-medium text-rose-300 hover:text-rose-200">Forgot password?</Link>
-            <span className="text-zinc-500">New here? <Link to="/register" className="font-semibold text-zinc-100 underline underline-offset-4">Create account</Link></span>
+            <span className="text-faint">New here? <Link to="/register" className="font-semibold text-strong underline underline-offset-4">Create account</Link></span>
           </div>
-          <div className="rounded-xl border border-[#2b2b40] bg-white/[0.02] p-3 text-xs leading-relaxed text-zinc-400">
-            Try the demo account — email <span className="font-semibold text-zinc-200">demo@cinebook.app</span>, password <span className="font-semibold text-zinc-200">demo1234</span>. It is created automatically on first use.
+          <div className="rounded-xl border border-line bg-wash p-3 text-xs leading-relaxed text-mist">
+            Try the demo account — email <span className="font-semibold text-strong">demo@cinebook.app</span>, password <span className="font-semibold text-strong">demo1234</span>. It is created automatically on first use.
           </div>
         </form>
       </Shell>
@@ -123,11 +123,11 @@ export function RegisterPage() {
             <Input id="pw" label="Password" icon={Lock} type={show ? "text" : "password"} placeholder="Min 6 characters" autoComplete="new-password" error={errors.password?.message} {...register("password", { required: "Password is required", minLength: { value: 6, message: "Minimum 6 characters" }, pattern: { value: /(?=.*[A-Za-z])(?=.*\d)/, message: "Use letters + a number" } })} />
             <Input id="confirm" label="Confirm password" icon={Lock} type={show ? "text" : "password"} placeholder="Repeat password" autoComplete="new-password" error={errors.confirm?.message} {...register("confirm", { required: "Please confirm password", validate: (v) => (v === watch("password") ? true : "Passwords do not match") })} />
           </div>
-          <button type="button" onClick={() => setShow((s) => !s)} className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-white">
+          <button type="button" onClick={() => setShow((s) => !s)} className="inline-flex items-center gap-1.5 text-xs font-medium text-mist hover:text-strong">
             {show ? <EyeOff size={14} /> : <Eye size={14} />} {show ? "Hide" : "Show"} passwords
           </button>
           <Button type="submit" loading={isSubmitting} className="w-full py-3">Create account</Button>
-          <p className="text-center text-sm text-zinc-500">Already have an account? <Link to="/login" className="font-semibold text-zinc-100 underline underline-offset-4">Sign in</Link></p>
+          <p className="text-center text-sm text-faint">Already have an account? <Link to="/login" className="font-semibold text-strong underline underline-offset-4">Sign in</Link></p>
         </form>
       </Shell>
     </div>
@@ -150,7 +150,7 @@ export function ForgotPage() {
           <form className="space-y-4" onSubmit={handleSubmit(() => push({ kind: "success", title: "Reset link sent" }))}>
             <Input id="f-email" label="Email" icon={Mail} placeholder="you@example.com" error={errors.email?.message} {...register("email", { required: "Email is required", pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email" } })} />
             <Button className="w-full py-3">Send reset link</Button>
-            <p className="text-center text-sm text-zinc-500"><Link to="/login" className="font-semibold text-zinc-100 underline underline-offset-4">Back to sign in</Link></p>
+            <p className="text-center text-sm text-faint"><Link to="/login" className="font-semibold text-strong underline underline-offset-4">Back to sign in</Link></p>
           </form>
         )}
       </Shell>

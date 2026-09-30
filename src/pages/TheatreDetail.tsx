@@ -32,23 +32,23 @@ export function TheatreDetailPage() {
 
   return (
     <div className="anim-rise">
-      <button type="button" onClick={() => nav(-1)} className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-white">
+      <button type="button" onClick={() => nav(-1)} className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-mist hover:text-strong">
         <ArrowLeft size={15} /> Back
       </button>
 
-      <div className="relative overflow-hidden rounded-3xl border border-[#232332]">
+      <div className="relative overflow-hidden rounded-3xl border border-line">
         <img src={theatre.image} alt="" className="h-56 w-full object-cover sm:h-72" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b13] via-[#0b0b13]/55 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+        <div className="on-photo absolute inset-x-0 bottom-0 p-5 sm:p-7">
           <div className="flex flex-wrap items-center gap-2">
             <Badge tone="neutral">{theatre.city}</Badge>
             <Badge tone="gold"><Star size={11} className="fill-amber-400 text-amber-400" />{theatre.rating.toFixed(1)}</Badge>
             <Badge tone="info"><Armchair size={11} />{theatre.screens} screens</Badge>
           </div>
           <h1 className="type-display mt-2">{theatre.name}</h1>
-          <p className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-zinc-300">
-            <span className="inline-flex items-center gap-1.5"><MapPin size={14} className="text-zinc-500" />{theatre.address}</span>
-            <span className="inline-flex items-center gap-1.5"><Phone size={14} className="text-zinc-500" />{theatre.contact}</span>
+          <p className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-soft">
+            <span className="inline-flex items-center gap-1.5"><MapPin size={14} className="text-faint" />{theatre.address}</span>
+            <span className="inline-flex items-center gap-1.5"><Phone size={14} className="text-faint" />{theatre.contact}</span>
           </p>
         </div>
       </div>
@@ -59,9 +59,9 @@ export function TheatreDetailPage() {
           <div className="mt-3 flex flex-wrap gap-1.5">
             {theatre.amenities.map((a) => <Badge key={a} tone="neutral"><Sparkles size={11} />{a}</Badge>)}
           </div>
-          <div className="mt-4 border-t border-[#232332] pt-4 text-sm">
+          <div className="mt-4 border-t border-line pt-4 text-sm">
             <p className="type-label">Screens</p>
-            <p className="mt-1 text-zinc-300">{Array.from({ length: theatre.screens }).map((_, i) => `Screen ${i + 1}`).join(" · ")}</p>
+            <p className="mt-1 text-soft">{Array.from({ length: theatre.screens }).map((_, i) => `Screen ${i + 1}`).join(" · ")}</p>
           </div>
         </Card>
         <Card className="p-5 lg:col-span-2">
@@ -69,7 +69,7 @@ export function TheatreDetailPage() {
             <h2 className="type-heading">Available shows</h2>
             <div className="flex gap-1.5 overflow-x-auto pb-1">
               {dates.map((d) => (
-                <button key={d} type="button" onClick={() => setDate(d)} aria-pressed={d === date} className={`shrink-0 rounded-lg border px-3 py-1.5 text-xs font-semibold ${d === date ? "border-rose-500/60 bg-rose-600/15 text-rose-100" : "border-[#2b2b40] text-zinc-400 hover:bg-white/5"}`}>
+                <button key={d} type="button" onClick={() => setDate(d)} aria-pressed={d === date} className={`shrink-0 rounded-lg border px-3 py-1.5 text-xs font-semibold ${d === date ? "border-rose-500/60 bg-rose-600/15 text-rose-100" : "border-line text-mist hover:bg-wash"}`}>
                   {formatDate(d)}
                 </button>
               ))}
@@ -83,7 +83,7 @@ export function TheatreDetailPage() {
                 const m = movieById.get(movieId);
                 if (!m) return null;
                 return (
-                  <li key={movieId} className="rounded-xl border border-[#232332] bg-[#0e0e17] p-3.5">
+                  <li key={movieId} className="rounded-xl border border-line bg-coal p-3.5">
                     <div className="flex items-center gap-3">
                       <img src={m.poster} alt="" className="h-14 w-10 rounded-lg object-cover" loading="lazy" />
                       <div className="min-w-0 flex-1">
@@ -98,7 +98,7 @@ export function TheatreDetailPage() {
                           key={s.id}
                           type="button"
                           onClick={() => { setDraft({ movieId, theatreId: theatre.id, showId: s.id, seats: [] }); nav(`/seats/${s.id}`); }}
-                          className="group rounded-lg border border-[#2b2b40] px-3.5 py-2 text-left transition-colors hover:border-rose-500/50 hover:bg-rose-600/10"
+                          className="group rounded-lg border border-line px-3.5 py-2 text-left transition-colors hover:border-rose-500/50 hover:bg-rose-600/10"
                         >
                           <span className="flex items-center gap-1.5 text-sm font-bold text-emerald-300"><Clock size={13} />{s.time}</span>
                           <span className="type-caption">{s.screen} · {s.format} · ₹{s.priceClassic}+</span>

@@ -65,7 +65,7 @@ export function SeatsPage() {
 
   return (
     <div className="anim-rise">
-      <button type="button" onClick={() => nav(-1)} className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-white">
+      <button type="button" onClick={() => nav(-1)} className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-mist hover:text-strong">
         <ArrowLeft size={15} /> Back
       </button>
       <PageHeader
@@ -79,15 +79,15 @@ export function SeatsPage() {
           {/* legend */}
           <div className="mb-5 flex flex-wrap items-center gap-4 text-xs">
             {[
-              ["Available", "border-[#3a3a52] bg-[#1c1c2a]"],
+              ["Available", "border-line bg-elevated"],
               ["Selected", "border-rose-500 bg-rose-600"],
-              ["Booked", "border-transparent bg-[#2a2a38] opacity-50"],
+              ["Booked", "border-transparent bg-line opacity-50"],
             ].map(([label, cls]) => (
-              <span key={label} className="inline-flex items-center gap-1.5 text-zinc-400">
+              <span key={label} className="inline-flex items-center gap-1.5 text-mist">
                 <span className={cn("inline-block h-4 w-6 rounded-t-md border", cls)} />{label}
               </span>
             ))}
-            <span className="ml-auto inline-flex items-center gap-1 text-zinc-500"><Info size={13} />Deterministic demo occupancy</span>
+            <span className="ml-auto inline-flex items-center gap-1 text-faint"><Info size={13} />Deterministic demo occupancy</span>
           </div>
 
           {/* screen */}
@@ -99,7 +99,7 @@ export function SeatsPage() {
           <div className="space-y-2.5 overflow-x-auto pb-2">
             {byRow.map(([row, list]) => (
               <div key={row} className="flex items-center gap-1.5 sm:gap-2">
-                <span className="w-6 shrink-0 text-center text-xs font-bold text-zinc-500">{row}</span>
+                <span className="w-6 shrink-0 text-center text-xs font-bold text-faint">{row}</span>
                 <div className={cn("flex flex-1 justify-center gap-1.5 sm:gap-2", row >= "H" && "gap-2 sm:gap-2.5")}>
                   {list.map((s, i) => {
                     const isSel = selected.includes(s.id);
@@ -115,8 +115,8 @@ export function SeatsPage() {
                           title={`${s.id} · ${s.tier} · ₹${s.price}`}
                           className={cn(
                             "h-7 w-7 rounded-t-lg border text-[10px] font-bold transition-all duration-100 sm:h-8 sm:w-8 sm:text-[11px]",
-                            booked && "cursor-not-allowed border-transparent bg-[#262633] text-zinc-600 line-through",
-                            !booked && !isSel && "border-[#3d3d58] bg-[#1c1c2a] text-zinc-400 hover:border-emerald-400/70 hover:bg-emerald-500/15 hover:text-emerald-200",
+                            booked && "cursor-not-allowed border-transparent bg-line text-faint line-through",
+                            !booked && !isSel && "border-line bg-elevated text-mist hover:border-emerald-400/70 hover:bg-emerald-500/15 hover:text-emerald-200",
                             isSel && "scale-105 border-rose-400 bg-rose-600 text-white shadow-[0_6px_16px_-4px_rgba(225,29,72,0.8)]",
                             row >= "H" && !booked && !isSel && "border-amber-400/30 bg-amber-400/5",
                           )}
@@ -127,15 +127,15 @@ export function SeatsPage() {
                     );
                   })}
                 </div>
-                <span className="w-6 shrink-0 text-center text-xs font-bold text-zinc-500">{row}</span>
+                <span className="w-6 shrink-0 text-center text-xs font-bold text-faint">{row}</span>
               </div>
             ))}
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-2 border-t border-[#232332] pt-4 text-center text-xs">
-            <div><p className="font-bold text-zinc-200">Classic A–C</p><p className="text-zinc-500">₹{show.priceClassic}</p></div>
-            <div><p className="font-bold text-zinc-200">Prime D–G</p><p className="text-zinc-500">₹{show.pricePrime}</p></div>
-            <div><p className="font-bold text-zinc-200">Recline H–J</p><p className="text-zinc-500">₹{show.priceRecline}</p></div>
+          <div className="mt-5 grid grid-cols-3 gap-2 border-t border-line pt-4 text-center text-xs">
+            <div><p className="font-bold text-strong">Classic A–C</p><p className="text-faint">₹{show.priceClassic}</p></div>
+            <div><p className="font-bold text-strong">Prime D–G</p><p className="text-faint">₹{show.pricePrime}</p></div>
+            <div><p className="font-bold text-strong">Recline H–J</p><p className="text-faint">₹{show.priceRecline}</p></div>
           </div>
         </Card>
 
@@ -152,10 +152,10 @@ export function SeatsPage() {
               </div>
             </div>
           )}
-          <div className="mt-4 space-y-2 border-t border-[#232332] pt-4 text-sm">
-            <div className="flex justify-between"><span className="text-zinc-400">Seats ({selected.length}/{MAX_SEATS})</span><span className="font-bold">{selected.length ? [...selected].sort().join(", ") : "—"}</span></div>
+          <div className="mt-4 space-y-2 border-t border-line pt-4 text-sm">
+            <div className="flex justify-between"><span className="text-mist">Seats ({selected.length}/{MAX_SEATS})</span><span className="font-bold">{selected.length ? [...selected].sort().join(", ") : "—"}</span></div>
             {selected.length > 0 && (
-              <ul className="space-y-1 text-xs text-zinc-400">
+              <ul className="space-y-1 text-xs text-mist">
                 {(["Classic", "Prime", "Recline"] as const).map((tier) => {
                   const n = selected.filter((id) => seats.find((s) => s.id === id)?.tier === tier).length;
                   if (!n) return null;
@@ -163,7 +163,7 @@ export function SeatsPage() {
                 })}
               </ul>
             )}
-            <div className="flex justify-between border-t border-[#232332] pt-2 text-base font-extrabold"><span>Total</span><span>{formatINR(total)}</span></div>
+            <div className="flex justify-between border-t border-line pt-2 text-base font-extrabold"><span>Total</span><span>{formatINR(total)}</span></div>
             <p className="type-caption">+ ₹24 convenience fee / ticket at checkout</p>
           </div>
           <Button className="mt-4 w-full py-3" disabled={selected.length === 0} onClick={proceed}>

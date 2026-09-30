@@ -59,7 +59,7 @@ export function DashboardPage() {
           { icon: Wallet, t: "E-tickets & refunds", d: "History, cancellations, invoices.", to: "/history" },
           { icon: TrendingUp, t: "Occupancy insights", d: "Revenue, trends and top films.", to: "/reports" },
         ].map((q) => (
-          <Link key={q.t} to={q.to} className="group flex items-center gap-3.5 rounded-2xl border border-[#232332] bg-[#12121c] p-4 transition-all hover:border-rose-500/40 hover:bg-[#161624]">
+          <Link key={q.t} to={q.to} className="group flex items-center gap-3.5 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-rose-500/40 hover:bg-wash">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-600/12 text-rose-300 transition-transform group-hover:scale-105">
               <q.icon size={18} />
             </span>
@@ -67,7 +67,7 @@ export function DashboardPage() {
               <span className="block text-sm font-bold">{q.t}</span>
               <span className="type-caption block">{q.d}</span>
             </span>
-            <ArrowRight size={16} className="ml-auto text-zinc-600 transition-transform group-hover:translate-x-0.5 group-hover:text-rose-300" />
+            <ArrowRight size={16} className="ml-auto text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-rose-300" />
           </Link>
         ))}
       </div>
@@ -81,14 +81,14 @@ export function DashboardPage() {
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {nowShowing.map((m) => (
-              <Link key={m.id} to={`/movies/${m.id}`} className="group overflow-hidden rounded-xl border border-[#232332] bg-[#0e0e17] transition-all hover:border-rose-500/40">
-                <div className="relative aspect-[2/3] overflow-hidden bg-zinc-900">
+              <Link key={m.id} to={`/movies/${m.id}`} className="group overflow-hidden rounded-xl border border-line bg-coal transition-all hover:border-rose-500/40">
+                <div className="on-photo relative aspect-[2/3] overflow-hidden bg-elevated">
                   <img src={m.poster} alt={m.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
                   <span className="absolute top-2 left-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[11px] font-bold text-amber-300 backdrop-blur">★ {m.rating.toFixed(1)}</span>
                 </div>
                 <div className="p-2.5">
                   <p className="truncate text-[13px] font-bold">{m.title}</p>
-                  <p className="truncate text-[11px] text-zinc-500">{m.genres.slice(0, 2).join(" · ")} · {m.language}</p>
+                  <p className="truncate text-[11px] text-faint">{m.genres.slice(0, 2).join(" · ")} · {m.language}</p>
                 </div>
               </Link>
             ))}
@@ -103,7 +103,7 @@ export function DashboardPage() {
           </div>
           <p className="type-caption mt-1">Dummy box-office data · this week</p>
           <div className="mt-3"><LineChart data={TREND} /></div>
-          <div className="mt-4 grid grid-cols-2 gap-3 border-t border-[#232332] pt-4">
+          <div className="mt-4 grid grid-cols-2 gap-3 border-t border-line pt-4">
             <div><p className="type-label">Today</p><p className="text-lg font-extrabold">{formatINR(38600)}</p></div>
             <div><p className="type-label">Occupancy</p><p className="text-lg font-extrabold">78%</p></div>
           </div>
@@ -115,14 +115,14 @@ export function DashboardPage() {
           <h2 className="type-heading">Recent bookings</h2>
           <p className="type-caption mt-0.5">Your latest tickets across all theatres</p>
           {recent.length === 0 ? (
-            <div className="mt-4 rounded-xl border border-dashed border-[#2c2c40] p-8 text-center">
-              <Ticket size={22} className="mx-auto text-zinc-600" />
+            <div className="mt-4 rounded-xl border border-dashed border-line p-8 text-center">
+              <Ticket size={22} className="mx-auto text-faint" />
               <p className="mt-2 text-sm font-semibold">No bookings yet</p>
               <p className="type-caption mt-1">Your tickets will appear here once you book.</p>
               <Button className="mt-3" onClick={() => nav("/movies")}>Browse movies</Button>
             </div>
           ) : (
-            <ul className="mt-3 divide-y divide-[#1d1d2b]">
+            <ul className="mt-3 divide-y divide-line">
               {recent.map((b) => (
                 <li key={b.id} className="flex items-center gap-3 py-3">
                   <img src={b.poster} alt="" className="h-12 w-9 rounded-md object-cover" loading="lazy" />

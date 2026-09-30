@@ -85,7 +85,7 @@ export function PaymentPage() {
         </span>
         <h1 className="type-heading mt-5">Processing payment…</h1>
         <p className="type-muted mt-1">Confirming {formatINR(total)} with your bank. Don't close this page.</p>
-        <div className="mx-auto mt-6 h-1.5 w-64 overflow-hidden rounded-full bg-white/5">
+        <div className="mx-auto mt-6 h-1.5 w-64 overflow-hidden rounded-full bg-wash">
           <div className="h-full w-1/2 animate-pulse rounded-full bg-rose-500" />
         </div>
       </div>
@@ -99,7 +99,7 @@ export function PaymentPage() {
           <BadgeCheck size={30} />
         </span>
         <h1 className="type-display mt-4">You're going to the movies!</h1>
-        <p className="type-muted mt-2">Booking <span className="font-bold text-zinc-100">{confirmed.id}</span> · {confirmed.seats.join(", ")} · {formatINR(confirmed.total)} paid via {confirmed.paymentMethod}</p>
+        <p className="type-muted mt-2">Booking <span className="font-bold text-strong">{confirmed.id}</span> · {confirmed.seats.join(", ")} · {formatINR(confirmed.total)} paid via {confirmed.paymentMethod}</p>
         {/* e-ticket */}
         <Card className="mt-6 overflow-hidden text-left">
           <div className="flex items-center justify-between bg-gradient-to-r from-rose-600/25 to-transparent px-5 py-3">
@@ -113,8 +113,8 @@ export function PaymentPage() {
               <p className="type-caption mt-1">{confirmed.theatreName} · {confirmed.screen}</p>
               <p className="type-caption">{formatDateLong(confirmed.date)} · {confirmed.time}</p>
               <p className="mt-2 text-sm font-bold">Seats: {confirmed.seats.join(", ")}</p>
-              <div className="mt-2 flex items-center gap-2 rounded-lg border border-dashed border-[#2c2c40] p-2">
-                <QrCode size={34} className="shrink-0 text-zinc-300" />
+              <div className="mt-2 flex items-center gap-2 rounded-lg border border-dashed border-line p-2">
+                <QrCode size={34} className="shrink-0 text-soft" />
                 <p className="type-caption">Show this QR at the gate · ID {confirmed.id}</p>
               </div>
             </div>
@@ -126,7 +126,7 @@ export function PaymentPage() {
         </div>
         <Button variant="ghost" className="mt-2 w-full" onClick={() => nav("/movies")}>Book another show</Button>
         <Modal open={ticketOpen} onClose={() => setTicketOpen(false)} title="Download ticket">
-          <p className="type-body text-zinc-300">Ticket download is UI-only in this build. In production this would render a print-ready PDF with QR, GST invoice and gate map.</p>
+          <p className="type-body text-soft">Ticket download is UI-only in this build. In production this would render a print-ready PDF with QR, GST invoice and gate map.</p>
           <Button className="mt-4 w-full" onClick={() => { setTicketOpen(false); push({ kind: "info", title: "Added to downloads (demo)" }); }}>Got it</Button>
         </Modal>
       </div>
@@ -158,7 +158,7 @@ export function PaymentPage() {
 
   return (
     <div className="anim-rise mx-auto max-w-4xl">
-      <button type="button" onClick={() => nav(-1)} className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-white">
+      <button type="button" onClick={() => nav(-1)} className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-mist hover:text-strong">
         <ArrowLeft size={15} /> Back to summary
       </button>
       <PageHeader title="Payment" sub="Demo checkout — no real money moves. Toggle failure simulation to preview error states." />
@@ -173,7 +173,7 @@ export function PaymentPage() {
                 role="tab"
                 aria-selected={method === t.id}
                 onClick={() => setMethod(t.id)}
-                className={cn("flex flex-col items-center gap-1.5 rounded-xl border px-3 py-3.5 text-sm font-bold transition-colors", method === t.id ? "border-rose-500/60 bg-rose-600/12 text-rose-100" : "border-[#2b2b40] text-zinc-400 hover:bg-white/5")}
+                className={cn("flex flex-col items-center gap-1.5 rounded-xl border px-3 py-3.5 text-sm font-bold transition-colors", method === t.id ? "border-rose-500/60 bg-rose-600/12 text-rose-100" : "border-line text-mist hover:bg-wash")}
               >
                 <t.icon size={18} />{t.label}
               </button>
@@ -194,8 +194,8 @@ export function PaymentPage() {
 
           {method === "upi" && (
             <div className="anim-fade mt-5">
-              <div className="flex flex-col items-center rounded-xl border border-dashed border-[#2c2c40] bg-white/[0.02] p-5 text-center">
-                <QrCode size={88} className="text-zinc-200" />
+              <div className="flex flex-col items-center rounded-xl border border-dashed border-line bg-wash p-5 text-center">
+                <QrCode size={88} className="text-strong" />
                 <p className="mt-2 text-sm font-bold">Scan with any UPI app</p>
                 <p className="type-caption">GPay · PhonePe · Paytm · BHIM</p>
               </div>
@@ -206,15 +206,15 @@ export function PaymentPage() {
           {method === "wallet" && (
             <div className="anim-fade mt-5 grid gap-2">
               {["CineWallet (₹2,400 balance)", "Paytm Wallet", "Amazon Pay", "Mobikwik"].map((w, i) => (
-                <label key={w} className={cn("flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 text-sm font-medium transition-colors", i === 0 ? "border-rose-500/50 bg-rose-600/8" : "border-[#2b2b40] hover:bg-white/[0.03]")}>
+                <label key={w} className={cn("flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 text-sm font-medium transition-colors", i === 0 ? "border-rose-500/50 bg-rose-600/8" : "border-line hover:bg-wash")}>
                   <input type="radio" name="wallet" defaultChecked={i === 0} className="accent-rose-500" />
-                  <Wallet size={16} className="text-zinc-400" />{w}
+                  <Wallet size={16} className="text-mist" />{w}
                 </label>
               ))}
             </div>
           )}
 
-          <label className="mt-5 flex cursor-pointer items-center justify-between rounded-xl border border-[#2b2b40] px-4 py-3 text-xs text-zinc-400">
+          <label className="mt-5 flex cursor-pointer items-center justify-between rounded-xl border border-line px-4 py-3 text-xs text-mist">
             <span>Simulate payment failure (preview error screen)</span>
             <input type="checkbox" checked={forceFail} onChange={(e) => setForceFail(e.target.checked)} className="h-4 w-4 accent-rose-500" />
           </label>
@@ -238,14 +238,14 @@ export function PaymentPage() {
             </div>
           )}
           <div className="mt-3 flex flex-wrap gap-1.5">
-            {seats.map((s) => <span key={s} className="rounded-md bg-white/5 px-2 py-0.5 text-xs font-bold">{s}</span>)}
+            {seats.map((s) => <span key={s} className="rounded-md bg-wash px-2 py-0.5 text-xs font-bold">{s}</span>)}
           </div>
-          <dl className="mt-4 space-y-1.5 border-t border-[#232332] pt-3 text-sm">
-            <div className="flex justify-between"><dt className="text-zinc-400">Tickets</dt><dd className="font-semibold">{formatINR(ticketPrice)}</dd></div>
-            <div className="flex justify-between"><dt className="text-zinc-400">Fees</dt><dd className="font-semibold">{formatINR(seats.length * 24)}</dd></div>
+          <dl className="mt-4 space-y-1.5 border-t border-line pt-3 text-sm">
+            <div className="flex justify-between"><dt className="text-mist">Tickets</dt><dd className="font-semibold">{formatINR(ticketPrice)}</dd></div>
+            <div className="flex justify-between"><dt className="text-mist">Fees</dt><dd className="font-semibold">{formatINR(seats.length * 24)}</dd></div>
             <div className="flex justify-between text-base font-extrabold"><dt>Total</dt><dd>{formatINR(total)}</dd></div>
           </dl>
-          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-zinc-500"><ShieldCheck size={12} className="text-emerald-400" /> Duplicate bookings blocked automatically</div>
+          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-faint"><ShieldCheck size={12} className="text-emerald-400" /> Duplicate bookings blocked automatically</div>
         </Card>
       </div>
     </div>

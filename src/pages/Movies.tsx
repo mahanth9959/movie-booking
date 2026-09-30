@@ -61,14 +61,14 @@ export function MoviesPage() {
         actions={
           <div className="flex items-center gap-2">
             <Badge tone={source === "api" ? "success" : "warning"}>{source === "api" ? "● Live API" : "● Offline mode"}</Badge>
-            <select value={String(apiPage)} onChange={(e) => setApiPage(Number(e.target.value))} className="rounded-lg border border-[#2b2b40] bg-[#12121c] px-2.5 py-2 text-xs font-semibold" aria-label="Catalogue page">
-              {[0, 1, 2, 3].map((p) => <option key={p} value={p} className="bg-zinc-900">Catalogue {p + 1}</option>)}
+            <select value={String(apiPage)} onChange={(e) => setApiPage(Number(e.target.value))} className="rounded-lg border border-line bg-surface px-2.5 py-2 text-xs font-semibold" aria-label="Catalogue page">
+              {[0, 1, 2, 3].map((p) => <option key={p} value={p} className="bg-elevated">Catalogue {p + 1}</option>)}
             </select>
           </div>
         }
       />
 
-      <div className="mb-5 grid gap-3 rounded-2xl border border-[#232332] bg-[#0e0e17] p-4 md:grid-cols-[1.4fr_1fr_1fr_1fr] lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr_1fr]">
+      <div className="mb-5 grid gap-3 rounded-2xl border border-line bg-coal p-4 md:grid-cols-[1.4fr_1fr_1fr_1fr] lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr_1fr]">
         <SearchInput placeholder="Search movies…" value={q} onChange={(e) => set(q === "" ? "q" : "q", e.target.value)} aria-label="Search movies" />
         <Select label="Genre" options={genres.map((g) => ({ value: g, label: g }))} value={genre} onChange={(e) => set("genre", (e.target as HTMLSelectElement).value)} />
         <Select label="Language" options={langs.map((l) => ({ value: l, label: l }))} value={lang} onChange={(e) => set("lang", (e.target as HTMLSelectElement).value)} />
@@ -77,7 +77,7 @@ export function MoviesPage() {
         <Select label="Status" options={["All", "Now Showing", "Upcoming", "Classic"].map((s) => ({ value: s, label: s }))} value={status} onChange={(e) => set("status", (e.target as HTMLSelectElement).value)} />
       </div>
 
-      <div className="mb-4 flex items-center gap-2 text-xs text-zinc-500">
+      <div className="mb-4 flex items-center gap-2 text-xs text-faint">
         <SlidersHorizontal size={13} />
         <span>{filtered.length} title{filtered.length === 1 ? "" : "s"} found</span>
         {(q || genre !== "All" || lang !== "All" || minRating > 0 || status !== "All") && (
@@ -100,13 +100,13 @@ export function MoviesPage() {
         <>
           <div className="stagger grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
             {slice.map((m) => (
-              <Link key={m.id} to={`/movies/${m.id}?apiPage=${apiPage}`} className="group overflow-hidden rounded-2xl border border-[#232332] bg-[#12121c] transition-all duration-200 hover:-translate-y-1 hover:border-rose-500/40 hover:shadow-[0_20px_40px_-16px_rgba(225,29,72,0.35)]">
-                <div className="relative aspect-[2/3] overflow-hidden bg-zinc-900">
+              <Link key={m.id} to={`/movies/${m.id}?apiPage=${apiPage}`} className="group overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-200 hover:-translate-y-1 hover:border-rose-500/40 hover:shadow-[0_20px_40px_-16px_rgba(225,29,72,0.35)]">
+                <div className="on-photo relative aspect-[2/3] overflow-hidden bg-elevated">
                   <img src={m.poster} alt={`${m.title} poster`} loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
                   <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/80 to-transparent" />
                   <span className="absolute top-2.5 left-2.5"><Badge tone={m.status === "Now Showing" ? "success" : m.status === "Upcoming" ? "warning" : "neutral"}>{m.status}</Badge></span>
                   <span className="absolute bottom-2.5 left-2.5"><Rating value={m.rating} /></span>
-                  <span className="absolute right-2.5 bottom-2.5 rounded-md bg-black/70 px-1.5 py-0.5 text-[11px] font-semibold text-zinc-200 backdrop-blur">{formatDuration(m.runtime)}</span>
+                  <span className="absolute right-2.5 bottom-2.5 rounded-md bg-black/70 px-1.5 py-0.5 text-[11px] font-semibold text-strong backdrop-blur">{formatDuration(m.runtime)}</span>
                 </div>
                 <div className="p-3.5">
                   <h3 className="truncate text-sm font-bold group-hover:text-rose-200">{m.title}</h3>

@@ -20,12 +20,12 @@ export function LineChart({ data, height = 140 }: { data: number[]; height?: num
         </linearGradient>
       </defs>
       {[32, 72, 112].map((y) => (
-        <line key={y} x1="0" y1={y} x2="560" y2={y} stroke="#232332" strokeDasharray="4 6" />
+        <line key={y} x1="0" y1={y} x2="560" y2={y} style={{ stroke: "var(--line)" }} strokeDasharray="4 6" />
       ))}
       <path d={`${path} L552,160 L8,160 Z`} fill="url(#lg)" />
       <path d={path} fill="none" stroke="#fb4d6d" strokeWidth="2.5" strokeLinecap="round" />
       {dots.map((d, i) => (
-        <circle key={i} cx={d.x} cy={d.y} r="3.5" fill="#0b0b13" stroke="#fb7185" strokeWidth="2" />
+        <circle key={i} cx={d.x} cy={d.y} r="3.5" style={{ fill: "var(--surface)" }} stroke="#fb7185" strokeWidth="2" />
       ))}
     </svg>
   );
@@ -37,14 +37,14 @@ export function Bars({ data, labels }: { data: number[]; labels: string[] }) {
     <div className="flex h-40 items-end gap-2" role="img" aria-label="Bar chart">
       {data.map((v, i) => (
         <div key={labels[i]} className="flex flex-1 flex-col items-center gap-1.5" title={`${labels[i]}: ${v}`}>
-          <span className="text-[11px] font-bold text-zinc-300">{v}</span>
-          <div className="flex w-full flex-1 items-end rounded-md bg-white/[0.04]">
+          <span className="text-[11px] font-bold text-soft">{v}</span>
+          <div className="flex w-full flex-1 items-end rounded-md bg-wash">
             <div
               className="w-full rounded-md bg-gradient-to-t from-rose-800 to-rose-500 transition-all"
               style={{ height: `${Math.max(6, (v / max) * 100)}%` }}
             />
           </div>
-          <span className="text-[10px] font-medium text-zinc-500">{labels[i]}</span>
+          <span className="text-[10px] font-medium text-faint">{labels[i]}</span>
         </div>
       ))}
     </div>
@@ -65,7 +65,7 @@ export function Donut({ segments }: { segments: { label: string; value: number; 
   return (
     <div className="flex items-center gap-5">
       <svg viewBox="0 0 140 140" className="h-32 w-32 shrink-0" role="img" aria-label="Share chart">
-        <circle cx="70" cy="70" r={R} fill="none" stroke="#232332" strokeWidth="16" />
+        <circle cx="70" cy="70" r={R} fill="none" style={{ stroke: "var(--line)" }} strokeWidth="16" />
         {arcs.map((s) => (
           <circle
             key={s.label}
@@ -73,7 +73,7 @@ export function Donut({ segments }: { segments: { label: string; value: number; 
             cy="70"
             r={R}
             fill="none"
-            stroke={s.color}
+            style={{ stroke: s.color }}
             strokeWidth="16"
             strokeDasharray={`${s.frac * C} ${C}`}
             strokeDashoffset={s.offset}
@@ -81,10 +81,10 @@ export function Donut({ segments }: { segments: { label: string; value: number; 
             transform="rotate(-90 70 70)"
           />
         ))}
-        <text x="70" y="66" textAnchor="middle" fill="#fff" fontSize="18" fontWeight="800">
+        <text x="70" y="66" textAnchor="middle" style={{ fill: "var(--strong)" }} fontSize="18" fontWeight="800">
           {total}
         </text>
-        <text x="70" y="84" textAnchor="middle" fill="#8b8b9f" fontSize="10">
+        <text x="70" y="84" textAnchor="middle" style={{ fill: "var(--faint)" }} fontSize="10">
           bookings
         </text>
       </svg>
@@ -92,7 +92,7 @@ export function Donut({ segments }: { segments: { label: string; value: number; 
         {segments.map((s) => (
           <li key={s.label} className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full" style={{ background: s.color }} />
-            <span className="text-zinc-300">{s.label}</span>
+            <span className="text-soft">{s.label}</span>
             <span className="ml-auto pl-4 font-bold">{Math.round((s.value / total) * 100)}%</span>
           </li>
         ))}

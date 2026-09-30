@@ -37,12 +37,12 @@ export function HistoryPage() {
     <div className="anim-rise">
       <PageHeader title="Booking history" sub="Search, filter, cancel and re-open e-tickets for every order." actions={<Badge tone="neutral">{mine.length} total</Badge>} />
 
-      <div className="mb-5 grid gap-3 rounded-2xl border border-[#232332] bg-[#0e0e17] p-4 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div className="mb-5 grid gap-3 rounded-2xl border border-line bg-coal p-4 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
         <SearchInput placeholder="Search by movie, theatre or booking ID…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search bookings" />
         <Select label="Movie" options={titles.map((t) => ({ value: t, label: t === "All" ? "All movies" : t }))} value={movieF} onChange={(e) => setMovieF((e.target as HTMLSelectElement).value)} />
         <div>
           <label htmlFor="bf-date" className="type-label mb-1.5 block">Booking date</label>
-          <input id="bf-date" type="date" value={dateF} onChange={(e) => setDateF(e.target.value)} className="w-full rounded-lg border border-[#2b2b40] bg-[#12121c] px-3 py-2.5 text-sm text-zinc-100 focus:border-rose-500/70 focus:outline-none" />
+          <input id="bf-date" type="date" value={dateF} onChange={(e) => setDateF(e.target.value)} className="w-full rounded-lg border border-line bg-surface px-3 py-2.5 text-sm text-strong focus:border-rose-500/70 focus:outline-none" />
         </div>
         <Select label="Status" options={["All", "Confirmed", "Cancelled", "Completed"].map((s) => ({ value: s, label: s === "All" ? "All statuses" : s }))} value={statusF} onChange={(e) => setStatusF((e.target as HTMLSelectElement).value)} />
       </div>
@@ -64,8 +64,8 @@ export function HistoryPage() {
                   <Badge tone={b.status === "Confirmed" ? "success" : b.status === "Cancelled" ? "danger" : "neutral"}>{b.status}</Badge>
                 </div>
                 <p className="type-caption mt-1">{b.id} · booked {formatDate(b.bookedAt)} · {b.paymentMethod}</p>
-                <p className="mt-1 text-[13px] text-zinc-300">{b.theatreName} · {b.screen} · {formatDateLong(b.date)} · {b.time}</p>
-                <p className="mt-1 text-[13px] font-semibold">Seats {b.seats.join(", ")} · <span className="text-zinc-400">{formatINR(b.total)}</span></p>
+                <p className="mt-1 text-[13px] text-soft">{b.theatreName} · {b.screen} · {formatDateLong(b.date)} · {b.time}</p>
+                <p className="mt-1 text-[13px] font-semibold">Seats {b.seats.join(", ")} · <span className="text-mist">{formatINR(b.total)}</span></p>
               </div>
               <div className="flex shrink-0 gap-2 sm:flex-col">
                 <Button variant="secondary" onClick={() => setTicket(b)}><QrCode size={14} /> E-ticket</Button>
@@ -92,7 +92,7 @@ export function HistoryPage() {
                 <p className="type-caption">{ticket.paymentMethod} · {formatINR(ticket.total)}</p>
               </div>
             </div>
-            <div className="mt-4 flex items-center gap-3 rounded-xl border border-dashed border-[#2c2c40] bg-white/[0.02] p-3">
+            <div className="mt-4 flex items-center gap-3 rounded-xl border border-dashed border-line bg-wash p-3">
               <QrCode size={64} className="shrink-0" />
               <p className="type-caption">Scan at entry. Arrive 20 min early · outside food not allowed · ID may be checked for A-rated films.</p>
             </div>
@@ -106,7 +106,7 @@ export function HistoryPage() {
       <Modal open={!!confirmCancel} onClose={() => setConfirmCancel(null)} title="Cancel booking?">
         {confirmCancel && (
           <div>
-            <p className="type-body text-zinc-300">Cancel <span className="font-bold text-white">{confirmCancel.id}</span> — {confirmCancel.movieTitle}, {confirmCancel.seats.join(", ")} on {formatDate(confirmCancel.date)}? Refund (demo) lands in 3–5 days.</p>
+            <p className="type-body text-soft">Cancel <span className="font-bold text-strong">{confirmCancel.id}</span> — {confirmCancel.movieTitle}, {confirmCancel.seats.join(", ")} on {formatDate(confirmCancel.date)}? Refund (demo) lands in 3–5 days.</p>
             <div className="mt-5 flex gap-2">
               <Button variant="secondary" className="flex-1" onClick={() => setConfirmCancel(null)}>Keep ticket</Button>
               <Button variant="danger" className="flex-1" onClick={() => { cancelBooking(confirmCancel.id); push({ kind: "success", title: "Booking cancelled", message: `${confirmCancel.id} refunded (demo).` }); setConfirmCancel(null); }}>

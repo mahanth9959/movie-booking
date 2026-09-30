@@ -58,16 +58,16 @@ export function ReportsPage() {
             <Badge tone="success">+18.2%</Badge>
           </div>
           <div className="mt-3"><LineChart data={REVENUE_TREND} height={170} /></div>
-          <div className="mt-3 flex gap-5 border-t border-[#232332] pt-3 text-sm">
-            <span className="text-zinc-400">Avg / day <span className="ml-1 font-extrabold text-white">{formatINR(29600)}</span></span>
-            <span className="text-zinc-400">Peak <span className="ml-1 font-extrabold text-white">Sat · {formatINR(41200)}</span></span>
-            <span className="text-zinc-400">Tickets <span className="ml-1 font-extrabold text-white">{totalTickets.toLocaleString("en-IN")}</span></span>
+          <div className="mt-3 flex gap-5 border-t border-line pt-3 text-sm">
+            <span className="text-mist">Avg / day <span className="ml-1 font-extrabold text-strong">{formatINR(29600)}</span></span>
+            <span className="text-mist">Peak <span className="ml-1 font-extrabold text-strong">Sat · {formatINR(41200)}</span></span>
+            <span className="text-mist">Tickets <span className="ml-1 font-extrabold text-strong">{totalTickets.toLocaleString("en-IN")}</span></span>
           </div>
         </Card>
         <Card className="p-5">
           <h2 className="type-heading">Seat occupancy</h2>
           <p className="type-caption">Blended live + dummy</p>
-          <div className="mt-4"><Donut segments={[{ label: "Occupied", value: occupancy, color: "#e11d48" }, { label: "Prime", value: 12, color: "#fbbf24" }, { label: "Available", value: 100 - occupancy - 12, color: "#2c2c40" }]} /></div>
+          <div className="mt-4"><Donut segments={[{ label: "Occupied", value: occupancy, color: "#e11d48" }, { label: "Prime", value: 12, color: "#fbbf24" }, { label: "Available", value: 100 - occupancy - 12, color: "var(--line)" }]} /></div>
           <p className="type-caption mt-4 flex items-center gap-1.5"><Armchair size={13} />Prime rows (D–G) fill fastest on weekends.</p>
         </Card>
       </div>
@@ -87,9 +87,9 @@ export function ReportsPage() {
               <ol className="space-y-2.5">
                 {byMovie.slice(0, 5).map(([t, n], i) => (
                   <li key={t} className="flex items-center gap-2.5 text-sm">
-                    <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-extrabold ${i === 0 ? "bg-amber-400 text-zinc-950" : "bg-white/5 text-zinc-400"}`}>{i + 1}</span>
+                    <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-extrabold ${i === 0 ? "bg-amber-400 text-zinc-950" : "bg-wash text-mist"}`}>{i + 1}</span>
                     <span className="min-w-0 flex-1 truncate font-medium">{t}</span>
-                    <span className="font-bold text-zinc-300">{n}</span>
+                    <span className="font-bold text-soft">{n}</span>
                   </li>
                 ))}
               </ol>
@@ -100,9 +100,9 @@ export function ReportsPage() {
               <ol className="space-y-2.5">
                 {byTheatre.slice(0, 5).map(([t, n], i) => (
                   <li key={t} className="flex items-center gap-2.5 text-sm">
-                    <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-extrabold ${i === 0 ? "bg-rose-500 text-white" : "bg-white/5 text-zinc-400"}`}>{i + 1}</span>
+                    <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-extrabold ${i === 0 ? "bg-rose-500 text-white" : "bg-wash text-mist"}`}>{i + 1}</span>
                     <span className="min-w-0 flex-1 truncate font-medium">{t}</span>
-                    <span className="font-bold text-zinc-300">{n}</span>
+                    <span className="font-bold text-soft">{n}</span>
                   </li>
                 ))}
               </ol>

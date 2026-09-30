@@ -1,4 +1,4 @@
-import { AlertTriangle, CheckCircle2, ChevronLeft, ChevronRight, Info, Search, Star, XCircle, type LucideIcon } from "lucide-react";
+import { AlertTriangle, CheckCircle2, ChevronLeft, ChevronRight, Info, Moon, Search, Star, Sun, XCircle, type LucideIcon } from "lucide-react";
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
 import { cn } from "../utils/cn";
 
@@ -11,8 +11,8 @@ interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({ variant = "primary", loading, className, children, disabled, ...rest }: BtnProps) {
   const styles: Record<BtnVariant, string> = {
     primary: "bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white shadow-[0_8px_24px_-8px_rgba(225,29,72,0.7)]",
-    secondary: "bg-[#1c1c2a] hover:bg-[#262636] text-zinc-100 border border-[#2b2b40]",
-    ghost: "bg-transparent hover:bg-white/5 text-zinc-300",
+    secondary: "bg-elevated hover:bg-wash text-strong border border-line",
+    ghost: "bg-transparent hover:bg-wash text-soft",
     danger: "bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/30",
     gold: "bg-amber-400 hover:bg-amber-300 text-zinc-950 font-bold",
   };
@@ -48,14 +48,14 @@ export function Input({ label, error, icon: Icon, className, id, ...rest }: Inpu
         </label>
       )}
       <div className="relative">
-        {Icon && <Icon size={16} className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-zinc-500" />}
+        {Icon && <Icon size={16} className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-faint" />}
         <input
           id={id}
           {...rest}
           className={cn(
-            "w-full rounded-lg border bg-[#12121c] px-3.5 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 transition-colors",
+            "w-full rounded-lg border bg-surface px-3.5 py-2.5 text-sm text-strong placeholder:text-faint transition-colors",
             Icon && "pl-9",
-            error ? "border-red-500/60 focus:border-red-400" : "border-[#2b2b40] focus:border-rose-500/70",
+            error ? "border-red-500/60 focus:border-red-400" : "border-line focus:border-rose-500/70",
             "focus:outline-none",
             className,
           )}
@@ -69,10 +69,10 @@ export function Input({ label, error, icon: Icon, className, id, ...rest }: Inpu
 export function SearchInput({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className={cn("relative", className)}>
-      <Search size={16} className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-zinc-500" />
+      <Search size={16} className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-faint" />
       <input
         {...rest}
-        className="w-full rounded-lg border border-[#2b2b40] bg-[#12121c] py-2.5 pr-3 pl-9 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-rose-500/70 focus:outline-none"
+        className="w-full rounded-lg border border-line bg-surface py-2.5 pr-3 pl-9 text-sm text-strong placeholder:text-faint focus:border-rose-500/70 focus:outline-none"
       />
     </div>
   );
@@ -94,12 +94,12 @@ export function Select({ label, options, className, id, ...rest }: SelectProps &
         id={id}
         {...(rest as object)}
         className={cn(
-          "w-full appearance-none rounded-lg border border-[#2b2b40] bg-[#12121c] px-3 py-2.5 text-sm text-zinc-100 focus:border-rose-500/70 focus:outline-none",
+          "w-full appearance-none rounded-lg border border-line bg-surface px-3 py-2.5 text-sm text-strong focus:border-rose-500/70 focus:outline-none",
           className,
         )}
       >
         {options.map((o) => (
-          <option key={o.value} value={o.value} className="bg-zinc-900">
+          <option key={o.value} value={o.value} className="bg-elevated">
             {o.label}
           </option>
         ))}
@@ -110,12 +110,12 @@ export function Select({ label, options, className, id, ...rest }: SelectProps &
 
 /* ---------- Card / Badge ---------- */
 export function Card({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cn("rounded-2xl border border-[#232332] bg-[#12121c] shadow-[0_12px_32px_-16px_rgba(0,0,0,0.8)]", className)}>{children}</div>;
+  return <div className={cn("rounded-2xl border border-line bg-surface shadow-[0_12px_32px_-16px_rgba(0,0,0,0.8)]", className)}>{children}</div>;
 }
 
 export function Badge({ tone = "neutral", children, className }: { tone?: "neutral" | "success" | "warning" | "danger" | "info" | "gold"; children: ReactNode; className?: string }) {
   const map: Record<string, string> = {
-    neutral: "bg-white/5 text-zinc-300 border-white/10",
+    neutral: "bg-wash text-soft border-line",
     success: "bg-emerald-500/10 text-emerald-300 border-emerald-500/25",
     warning: "bg-amber-500/10 text-amber-300 border-amber-500/25",
     danger: "bg-red-500/10 text-red-300 border-red-500/25",
@@ -134,7 +134,7 @@ export function Rating({ value, className }: { value: number; className?: string
     <span className={cn("inline-flex items-center gap-1 text-sm font-bold text-amber-300", className)}>
       <Star size={14} className="fill-amber-400 text-amber-400" />
       {value.toFixed(1)}
-      <span className="font-medium text-zinc-500">/10</span>
+      <span className="font-medium text-faint">/10</span>
     </span>
   );
 }
@@ -154,7 +154,7 @@ export function PageHeader({ title, sub, actions }: { title: string; sub?: strin
 
 export function StatCard({ icon: Icon, label, value, hint, accent }: { icon: LucideIcon; label: string; value: string; hint?: string; accent?: string }) {
   return (
-    <Card className="p-5 transition-colors hover:border-[#34344a]">
+    <Card className="p-5 transition-colors hover:border-rose-500/40">
       <div className="flex items-center justify-between">
         <span className="type-label">{label}</span>
         <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-rose-600/12 text-rose-400" style={accent ? { background: accent } : undefined}>
@@ -174,11 +174,11 @@ export function Modal({ open, onClose, title, children, wide }: { open: boolean;
     <div className="anim-fade fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 backdrop-blur-sm sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-label={title} onClick={onClose}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`anim-pop w-full overflow-hidden rounded-t-2xl border border-[#2c2c40] bg-[#14141f] shadow-2xl sm:rounded-2xl ${wide ? "max-w-2xl" : "max-w-lg"}`}
+        className={`anim-pop w-full overflow-hidden rounded-t-2xl border border-line bg-surface shadow-2xl sm:rounded-2xl ${wide ? "max-w-2xl" : "max-w-lg"}`}
       >
-        <div className="flex items-center justify-between border-b border-[#232332] px-5 py-4">
+        <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h3 className="type-sub">{title}</h3>
-          <button type="button" onClick={onClose} aria-label="Close dialog" className="rounded-md p-1.5 text-zinc-400 transition-colors hover:bg-white/5 hover:text-white">
+          <button type="button" onClick={onClose} aria-label="Close dialog" className="rounded-md p-1.5 text-mist transition-colors hover:bg-wash hover:text-strong">
             <XCircle size={18} />
           </button>
         </div>
@@ -191,8 +191,8 @@ export function Modal({ open, onClose, title, children, wide }: { open: boolean;
 /* ---------- Empty / loading / error ---------- */
 export function EmptyState({ icon: Icon, title, message, action }: { icon: LucideIcon; title: string; message: string; action?: ReactNode }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[#2c2c40] bg-white/[0.015] px-6 py-14 text-center">
-      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-zinc-500">
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-line bg-wash px-6 py-14 text-center">
+      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-wash text-faint">
         <Icon size={22} />
       </span>
       <h3 className="type-sub mt-4">{title}</h3>
@@ -219,7 +219,7 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry?: ()
 
 export function Spinner({ label = "Loading…" }: { label?: string }) {
   return (
-    <div className="flex items-center justify-center gap-2.5 py-10 text-zinc-400" role="status" aria-label={label}>
+    <div className="flex items-center justify-center gap-2.5 py-10 text-mist" role="status" aria-label={label}>
       <span className="h-5 w-5 animate-spin rounded-full border-2 border-rose-500 border-t-transparent" />
       <span className="text-sm">{label}</span>
     </div>
@@ -228,7 +228,7 @@ export function Spinner({ label = "Loading…" }: { label?: string }) {
 
 export function MovieCardSkeleton() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-[#232332] bg-[#12121c]">
+    <div className="overflow-hidden rounded-2xl border border-line bg-surface">
       <div className="skeleton aspect-[2/3]" />
       <div className="space-y-2 p-4">
         <div className="skeleton h-4 w-3/4 rounded" />
@@ -245,7 +245,7 @@ export function Pagination({ page, totalPages, onChange }: { page: number; total
   for (let i = Math.max(0, page - 2); i < Math.min(totalPages, page + 3); i++) nums.push(i);
   return (
     <nav className="mt-8 flex items-center justify-center gap-1.5" aria-label="Pagination">
-      <button type="button" disabled={page === 0} onClick={() => onChange(page - 1)} aria-label="Previous page" className="rounded-lg border border-[#2b2b40] bg-[#12121c] p-2 text-zinc-300 transition-colors hover:bg-white/5 disabled:opacity-40">
+      <button type="button" disabled={page === 0} onClick={() => onChange(page - 1)} aria-label="Previous page" className="rounded-lg border border-line bg-surface p-2 text-soft transition-colors hover:bg-wash disabled:opacity-40">
         <ChevronLeft size={16} />
       </button>
       {nums.map((n) => (
@@ -254,15 +254,32 @@ export function Pagination({ page, totalPages, onChange }: { page: number; total
           type="button"
           onClick={() => onChange(n)}
           aria-current={n === page ? "page" : undefined}
-          className={cn("min-w-9 rounded-lg px-2.5 py-2 text-sm font-semibold transition-colors", n === page ? "bg-rose-600 text-white" : "border border-[#2b2b40] bg-[#12121c] text-zinc-300 hover:bg-white/5")}
+          className={cn("min-w-9 rounded-lg px-2.5 py-2 text-sm font-semibold transition-colors", n === page ? "bg-rose-600 text-white" : "border border-line bg-surface text-soft hover:bg-wash")}
         >
           {n + 1}
         </button>
       ))}
-      <button type="button" disabled={page === totalPages - 1} onClick={() => onChange(page + 1)} aria-label="Next page" className="rounded-lg border border-[#2b2b40] bg-[#12121c] p-2 text-zinc-300 transition-colors hover:bg-white/5 disabled:opacity-40">
+      <button type="button" disabled={page === totalPages - 1} onClick={() => onChange(page + 1)} aria-label="Next page" className="rounded-lg border border-line bg-surface p-2 text-soft transition-colors hover:bg-wash disabled:opacity-40">
         <ChevronRight size={16} />
       </button>
     </nav>
+  );
+}
+
+/* ---------- Theme toggle ---------- */
+export function ThemeToggle({ theme, onToggle }: { theme: "dark" | "light"; onToggle: () => void }) {
+  const dark = theme === "dark";
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+      title={dark ? "Switch to light theme" : "Switch to dark theme"}
+      className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-2 text-xs font-semibold text-soft transition-colors hover:bg-wash"
+    >
+      {dark ? <Sun size={15} /> : <Moon size={15} />}
+      <span className="hidden sm:inline">{dark ? "Light" : "Dark"}</span>
+    </button>
   );
 }
 
@@ -274,14 +291,14 @@ export function ToastStack({ toasts, dismiss }: { toasts: { id: number; kind: st
         const Icon = t.kind === "success" ? CheckCircle2 : t.kind === "error" ? XCircle : Info;
         const bar = t.kind === "success" ? "bg-emerald-400" : t.kind === "error" ? "bg-red-400" : "bg-sky-400";
         return (
-          <div key={t.id} className="anim-pop pointer-events-auto flex items-start gap-3 overflow-hidden rounded-xl border border-[#2c2c40] bg-[#181824] p-3.5 shadow-2xl">
+          <div key={t.id} className="anim-pop pointer-events-auto flex items-start gap-3 overflow-hidden rounded-xl border border-line bg-elevated p-3.5 shadow-2xl">
             <span className={`mt-0.5 h-8 w-1 shrink-0 rounded-full ${bar}`} />
             <Icon size={18} className={t.kind === "success" ? "mt-0.5 shrink-0 text-emerald-400" : t.kind === "error" ? "mt-0.5 shrink-0 text-red-400" : "mt-0.5 shrink-0 text-sky-400"} />
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold">{t.title}</p>
-              {t.message && <p className="mt-0.5 text-xs text-zinc-400">{t.message}</p>}
+              {t.message && <p className="mt-0.5 text-xs text-mist">{t.message}</p>}
             </div>
-            <button type="button" onClick={() => dismiss(t.id)} aria-label="Dismiss" className="rounded p-1 text-zinc-500 hover:text-white">
+            <button type="button" onClick={() => dismiss(t.id)} aria-label="Dismiss" className="rounded p-1 text-faint hover:text-strong">
               <XCircle size={15} />
             </button>
           </div>
