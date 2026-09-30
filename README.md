@@ -1,32 +1,33 @@
-# React + TypeScript + Vite
+# CineBook — Movie Ticket Booking System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite + TypeScript + Tailwind CSS v4 + React Router + Context API + React Hook Form + Lucide.
 
-Currently, two official plugins are available:
+## Run
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+pnpm install
+pnpm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Demo login: `demo@cinebook.app` / `demo1234` (seeded automatically).
+
+## Modules
+
+| # | Module | Route |
+|---|--------|-------|
+| 1 | Auth (login / register / forgot, validation, show-hide, protected routes, localStorage) | `/login` `/register` `/forgot` |
+| 2 | Dashboard (stats, revenue pulse, recent bookings, quick actions, coming soon) | `/` |
+| 3 | Movies (TVMaze live API + offline fallback, detail, search, genre/language/rating filters, sort, pagination) | `/movies` `/movies/:id` |
+| 4 | Theatres (list, detail, screens, showtimes, search, city filter, pagination) | `/theatres` `/theatres/:id` |
+| 5 | Seat selection (tiers, max 8, summary, price calc) | `/seats/:showId` |
+| 6 | Booking (summary, price calc, booking ID, duplicate guard) | `/checkout/:showId` |
+| 7 | Payment (card/UPI/wallet UI, success + failure screens, e-ticket) | `/payment/:showId` |
+| 8 | History (search, filters, cancel, e-ticket modal) | `/history` `/bookings` |
+| 9 | Reports (revenue, trends, occupancy, leaderboards) | `/reports` |
+
+## Notes
+
+- Third-party API: TVMaze (`https://api.tvmaze.com/shows?page=N`), no key required, with loading skeletons, error + retry, and an offline fallback catalogue.
+- Trailer + ticket download are UI-only as specified.
+- Bookings, users and session persist in `localStorage` (`mtbs_*` keys).
+- Cards ending in `0000` (or the failure toggle) preview the payment-failure screen.
